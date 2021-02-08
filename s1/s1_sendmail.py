@@ -15,9 +15,10 @@ smtp_host = "127.0.0.1"
 smtp_port = 25
 smtp_from = "user@localhost.localdomain"
 smtp_to = "user@localhost"
+smtp_subject = "Host threat level increased - Automatically blocked SentinelOne agent (notification)"
 smtp_message_template = """Hello,
 
-This is an automated message. 
+This is an automated notification email. 
 
 One or more SentinelOne agents have been automatically blocked, because the hosts exceed the auto-block Threat and Certainty 
 minimum threshold. 
@@ -27,6 +28,8 @@ Amount of blocked S1 agents: {}
 The following hosts were blocked:
 {}
 
+The recommendation is to investigate the threats that have been observed on the blocked systems.
+
 Vectra URL: {}
 SentinelOne URL: {}
 
@@ -34,7 +37,7 @@ Thank you.
 """
 
 def send_mail(hosts_blocked):
-    message_content = ""
+    message_content = "Subject: {}\n\n".format(smtp_subject)
 
     for host in hosts_blocked:
         host_ip_address = host['last_source']
