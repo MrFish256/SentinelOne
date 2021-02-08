@@ -89,13 +89,19 @@ optional arguments:
   --tc TC TC            Poll for hosts with threat and certainty scores >=, eg --tc 50 50  
   --tag TAG             Host Tag for pulling context from SentinelOne  
   --blocktag BLOCKTAG  
-  --unblocktag UNBLOCKTAG  
+  --unblocktag UNBLOCKTAG
+  --tcautoblock TC TC            Auto-block S1 agents when threat and certainty minimum scores are reached >=, eg --tcautoblock 90 100
+  --monitormode            Auto-block can be set to "monitoring" mode, which can be used for dry-testing. This will not block any S1-agents.    
   --verbose             Verbose logging
 
+# Additional scripts
+An additional script (s1_sendmail.py) has been provided. This script can be used to send an email notification when one or multiple hosts are blocked.
+This can be used in combination with a cron job script, for example.
 
 ## Authors
 
-* **Matt Pieklik** - *Initial work*
+* **Matt Pieklik (Vectra AI)** - *Initial work*
+* **Jeffrey Jansen (Access42)** - *Small improvements and additional features*
 
 ## License
 

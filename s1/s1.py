@@ -33,7 +33,6 @@ S1_HEADER = {
 # Setup logging
 LOG = logging.getLogger(__name__)
 
-
 def validate_config(func):
     def config_validator():
         if bool(validators.url(COGNITO_BRAIN)):
@@ -56,7 +55,7 @@ def obtain_args():
                         help='Auto block S1 agents if threat and certainty scores >=, eg --tcautoblock 80 100.')
     parser.add_argument('--monitormode', action='store_true', default=False,
                         dest='monitormode',
-                        help='Autoblock can be set to "monitoring" mode, which can be used for dry-testing. This will not block any S1-agents.')
+                        help='Auto-block of S1 agents can be set to "monitoring" mode, which can be used for dry-testing. This will not block any S1-agents.')
     parser.add_argument('--tag', type=str, nargs=1, default=False, help='Host Tag for pulling context from SentinelOne')
     parser.add_argument('--blocktag', type=str, nargs=1, default=False)
     parser.add_argument('--unblocktag', type=str, nargs=1, default=False)
@@ -157,7 +156,7 @@ def add_host_note(hostid, note):
     VC.set_host_note(host_id=hostid, note=log_event, append=True)
 
 def auto_block_s1_agents(hosts, tc_autoblock, blocktags, monitor_mode_enabled):
-    # Supplied hosts will be auto-blocked, if TC autoblock criteria are met.
+    # Supplied hosts will be auto-blocked, if TC auto-block criteria are met.
     hosts_blocked = []
 
     for hostid in hosts.keys():
@@ -174,9 +173,9 @@ def auto_block_s1_agents(hosts, tc_autoblock, blocktags, monitor_mode_enabled):
                 print('hosts_id:{} already auto-blocked and skipped'.format(host_ip_address))
             else:
                 if monitor_mode_enabled:
-                    print('Auto-blocking S1 agent {} - threat/certainty [{}/{}] => autoblock [{}/{}] - monitor mode enabled!'.format(host_ip_address, host_threat, host_certainty, host_threat_minimum, host_certainty_minimum))
+                    print('Auto-blocking S1 agent {} - threat/certainty [{}/{}] => auto-block [{}/{}] - monitor mode enabled!'.format(host_ip_address, host_threat, host_certainty, host_threat_minimum, host_certainty_minimum))
                 else:
-                    add_host_note(hostid, 'Auto-blocking S1 agent {} - threat/certainty [{}/{}] => autoblock [{}/{}]'.format(host_ip_address, host_threat, host_certainty, host_threat_minimum, host_certainty_minimum))
+                    add_host_note(hostid, 'Auto-blocking S1 agent {} - threat/certainty [{}/{}] => auto-block [{}/{}]'.format(host_ip_address, host_threat, host_certainty, host_threat_minimum, host_certainty_minimum))
                     VC.set_host_tags(host_id=hostid, tags=blocktags, append=True)
                     hosts_blocked.append(hosts[hostid])
 
