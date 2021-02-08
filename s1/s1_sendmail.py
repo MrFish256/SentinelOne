@@ -1,7 +1,14 @@
-from datetime import datetime
-import s1
-import smtplib, ssl
-from config import COGNITO_BRAIN, S1_URL
+__title__ = 'SentinelOne integration'
+__version__ = '0.1'
+__copyright__ = 'Vectra AI, Inc.'
+__status__ = 'Draft'
+
+try:
+    import s1
+    import smtplib, ssl
+    from .config import COGNITO_BRAIN, S1_URL
+except ImportError as error:
+    print("\nMissing import requirements: %s\n" % str(error))
 
 # This SMTP-configuration should be adjusted to your needs.
 smtp_host = "127.0.0.1"
